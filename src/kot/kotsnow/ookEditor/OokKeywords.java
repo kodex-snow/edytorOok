@@ -1,8 +1,8 @@
 package kot.kotsnow.ookEditor;
 
-public class OokKeywords {
+public interface OokKeywords {
 
-	private static final String[] KEYWORDS = {
+	public static final String[] KEYWORDS = {
 			"Ook. Ook?","Ook? Ook.","Ook? Ook.","Ook! Ook!","Ook. Ook!","Ook! Ook.","Ook! Ook?","Ook? Ook!"
 	};
 
