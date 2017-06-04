@@ -21,10 +21,11 @@ public class SyntaxHighlighter {
 	}
 
 	public String highlight(String textFromEditor){
-
+		OokDocument.addEditable(textFromEditor);
 		text = new StringBuilder(textFromEditor);
 		deleteOpenTags();
 		deleteCloseTags();
+
 		colorWords();
 
 		return text.toString();
@@ -34,19 +35,19 @@ public class SyntaxHighlighter {
 
 		matcher = pattern.matcher(text);
 		int position=0;
+		text.insert(0, "<script type=\"text/javascript\" src=\"handleCaretPosition.js\">");
 		while(position<text.length()){
 			try{
+
 			matcher.find(position);
 			text.insert(matcher.start(),openTagStyle);
 			text.insert(matcher.end()+openTagStyle.length(), closeTagStyle);
 			position=matcher.end()+closeTagStyle.length()+openTagStyle.length();
+
 			} catch(Exception e){
 				position++;
 			}
-
 		}
-
-
 	}
 
 	private void deleteOpenTags(){
@@ -57,7 +58,6 @@ public class SyntaxHighlighter {
 			text.delete(index, index+openTagStyle.length());
 			index=text.indexOf(openTagStyle);
 		};
-
 	}
 
 	private void deleteCloseTags(){
@@ -72,11 +72,11 @@ public class SyntaxHighlighter {
 	}
 
 
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 
 	SyntaxHighlighter h = new SyntaxHighlighter();
 	System.out.println(h.highlight("Ook! Ook! dfdgd Ook? Ook.?"));
 	System.out.println(h.pattern.toString());
-	}
+	}*/
 
 }

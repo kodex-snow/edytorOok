@@ -18,7 +18,11 @@ public class Controller
 	@FXML
 	private AnchorPane aPane;
 
-	private String inputContent ="";
+	private SyntaxHighlighter syntaxHighlighter;
+
+	public Controller(){
+		syntaxHighlighter = new SyntaxHighlighter();
+	}
 
 	public void initialize(){
 
@@ -38,19 +42,6 @@ public class Controller
 	}
 
 
-	public String getInputContent(){
-		return inputContent;
-
-	}
-
-	public void setInputContent(String inputContent){
-		this.inputContent=inputContent;
-	}
-
-	public Window getWindow (){
-		return htmlEditor.getScene().getWindow();
-
-	}
 
 	public void open(){
 		FileChooser chooser = new FileChooser();
@@ -65,7 +56,11 @@ public class Controller
 	}
 
 	public void checkText(){
-		htmlEditor.setHtmlText("<b>Lolololo!!!!!</b>");
-	}
+		htmlEditor.setHtmlText(syntaxHighlighter.highlight(htmlEditor.getHtmlText()));
 
+	}
+	private Window getWindow (){
+		return htmlEditor.getScene().getWindow();
+
+	}
 }
