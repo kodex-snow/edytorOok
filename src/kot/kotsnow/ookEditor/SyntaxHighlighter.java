@@ -5,18 +5,19 @@ import java.util.regex.Pattern;
 
 public class SyntaxHighlighter {
 
-	StringBuilder text;
+	private StringBuilder text;
 
-	String openTagStyle="<p style=\"color:red\">";
-	String closeTagStyle="</p\">";
+	private String openTagStyle="<p style=\"color:red\">";
+	private String closeTagStyle="</p>";
 
-	Pattern pattern;
-	Matcher matcher;
+	private Matcher matcher;
+	private Pattern pattern;
 
-	String keywordRegex = "Ook([\\!\\.]\\s+Ook[\\!\\?\\.])|([\\?]\\s+Ook[\\!\\.])";
+	private final String KEYWORD_REGEX = "((Ook)[/!/.] (Ook)[/!/./?])|((Ook)[/?] (Ook)[/!/.])";
 
 	public SyntaxHighlighter(){
-		pattern=Pattern.compile(keywordRegex);
+		text= new StringBuilder();
+		pattern = Pattern.compile(KEYWORD_REGEX);
 	}
 
 	public String highlight(String textFromEditor){
@@ -24,12 +25,27 @@ public class SyntaxHighlighter {
 		text = new StringBuilder(textFromEditor);
 		deleteOpenTags();
 		deleteCloseTags();
+		colorWords();
 
 		return text.toString();
 	}
 
 	private void colorWords(){
-		matcher.find();
+
+		matcher = pattern.matcher(text);
+		int position=0;
+		while(position<text.length()){
+			try{
+			matcher.find(position);
+			text.insert(matcher.start(),openTagStyle);
+			text.insert(matcher.end()+openTagStyle.length(), closeTagStyle);
+			position=matcher.end()+closeTagStyle.length()+openTagStyle.length();
+			} catch(Exception e){
+				position++;
+			}
+
+		}
+
 
 	}
 
@@ -56,8 +72,11 @@ public class SyntaxHighlighter {
 	}
 
 
-	public static void main(){
+	public static void main(String[] args){
 
+	SyntaxHighlighter h = new SyntaxHighlighter();
+	System.out.println(h.highlight("Ook! Ook! dfdgd Ook? Ook.?"));
+	System.out.println(h.pattern.toString());
 	}
 
 }

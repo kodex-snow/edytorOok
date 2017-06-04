@@ -1,7 +1,6 @@
 package kot.kotsnow.ookEditor;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.HTMLEditor;
