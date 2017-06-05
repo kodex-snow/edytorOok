@@ -13,13 +13,13 @@
           <Menu mnemonicParsing="false" text="Plik">
             <items>
               <MenuItem fx:id="open" mnemonicParsing="false" onAction="#open" text="Otwórz" />
-                  <MenuItem mnemonicParsing="false" text="Zapisz" />
-                  <MenuItem mnemonicParsing="false" text="Zamknij" />
+              <MenuItem fx:id="save" mnemonicParsing="false" onAction="#save" text="Zapisz" />
+                  <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exit" text="Zamknij" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Okno">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Preferencje" />
+                  <MenuItem fx:id="settings" mnemonicParsing="false" text="Preferencje" onAction="#displaySettings" />
                </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Pomoc">

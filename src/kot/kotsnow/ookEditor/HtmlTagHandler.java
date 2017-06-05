@@ -7,10 +7,9 @@ public class HtmlTagHandler implements HtmlTagsRegex {
 
 	private Pattern pattern;
 	private Matcher matcher;
-	private Style style;
 
 	public HtmlTagHandler(){
-		style = new Style();
+
 	}
 
 	public String addEditable(String text){
@@ -31,8 +30,8 @@ public class HtmlTagHandler implements HtmlTagsRegex {
 
 
 	public StringBuilder deleteKeywordTags(StringBuilder text){
-		text = deleteTag(text, style.getOpenTagKeyword());
-		text = deleteTag(text, style.getCloseTagKeyword());
+		text = deleteTag(text, KEYWORD_OPEN);
+		text = deleteTag(text, KEYWORD_CLOSE);
 		return text;
 	}
 

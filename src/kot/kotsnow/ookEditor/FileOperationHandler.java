@@ -3,12 +3,9 @@ package kot.kotsnow.ookEditor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class FileOperationHandler {
-
-	public void open(String filePath){
-
-	}
 
 	public void save(String content, File file){
 
@@ -20,6 +17,19 @@ public class FileOperationHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public String open(File file){
+		try {
+			Scanner scanner = new Scanner(file);
+			String content = scanner.useDelimiter("\\Z").next();
+			scanner.close();
+
+			return content;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 }

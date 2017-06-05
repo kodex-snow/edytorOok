@@ -1,5 +1,8 @@
 package kot.kotsnow.ookEditor;
 
+import java.io.File;
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
@@ -14,14 +17,28 @@ public class Controller
 
 	@FXML
 	private MenuItem open;
+	@FXML
+	private MenuItem save;
+	@FXML
+	private MenuItem exit;
+	@FXML
+	private MenuItem settings;
 
 	@FXML
 	private AnchorPane aPane;
 
 	private SyntaxHighlighter syntaxHighlighter;
+	private FileOperationHandler fileOperationHandler;
+	private FileChooser chooser;
+	private HtmlTagHandler htmlTagHandler;
+
 
 	public Controller(){
+
 		syntaxHighlighter = new SyntaxHighlighter();
+		fileOperationHandler = new FileOperationHandler();
+		chooser = new FileChooser();
+		htmlTagHandler = new HtmlTagHandler();
 	}
 
 	public void initialize(){
@@ -36,7 +53,7 @@ public class Controller
 
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}
@@ -44,17 +61,38 @@ public class Controller
 
 
 	public void open(){
-		FileChooser chooser = new FileChooser();
-	    chooser.setTitle("Open File");
-	    chooser.showOpenDialog(getWindow());
 
+	    chooser.setTitle("Open File");
+	    try{
+	    	File file = chooser.showOpenDialog(getWindow());
+	    htmlEditor.setHtmlText(fileOperationHandler.open(file));
+	    checkText();
+	    } catch(Exception e){
+	    	e.printStackTrace();
+	    }
 	}
 
 
 	public void save(){
 
+		try{
+		chooser.setTitle("Open File");
+	    File file = chooser.showSaveDialog(getWindow());
+	    fileOperationHandler.save(htmlTagHandler.deleteAllHtmlTags(htmlEditor.getHtmlText()), file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
+	public void exit(){
+		System.exit(0);
+	}
+
+	public void displaySettings() throws IOException{
+		SettingsController settingsController = new SettingsController();
+		settingsController.display();
+	}
 	public void checkText(){
 		htmlEditor.setHtmlText(syntaxHighlighter.highlight(htmlEditor.getHtmlText()));
 

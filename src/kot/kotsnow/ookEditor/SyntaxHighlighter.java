@@ -7,25 +7,31 @@ public class SyntaxHighlighter {
 
 	private StringBuilder text;
 
-	private String openTagStyle="<p style=\"color:red\">";
-	private String closeTagStyle="</p>";
-
 	private Matcher matcher;
 	private Pattern pattern;
 
 	private final String KEYWORD_REGEX = "((Ook)[/!/.] (Ook)[/!/./?])|((Ook)[/?] (Ook)[/!/.])";
 
+	private Style style;
+	private HtmlTagHandler htmlTagHandler;
+
+
+
 	public SyntaxHighlighter(){
+
 		text= new StringBuilder();
 		pattern = Pattern.compile(KEYWORD_REGEX);
+		htmlTagHandler = new HtmlTagHandler();
+		style = new Style();
+
+
 	}
 
 	public String highlight(String textFromEditor){
-		OokDocument.addEditable(textFromEditor);
-		text = new StringBuilder(textFromEditor);
-		deleteOpenTags();
-		deleteCloseTags();
 
+		text = new StringBuilder(textFromEditor);
+
+		text = htmlTagHandler.deleteKeywordTags(text);
 		colorWords();
 
 		return text.toString();
@@ -33,50 +39,29 @@ public class SyntaxHighlighter {
 
 	private void colorWords(){
 
-		matcher = pattern.matcher(text);
+		String openKeywordTag = style.getOpenTagKeyword();
+		String closeKeywordTag = style.getCloseTagKeyword();
 		int position=0;
-		text.insert(0, "<script type=\"text/javascript\" src=\"handleCaretPosition.js\">");
+
+		matcher = pattern.matcher(text);
+
 		while(position<text.length()){
 			try{
 
-			matcher.find(position);
-			text.insert(matcher.start(),openTagStyle);
-			text.insert(matcher.end()+openTagStyle.length(), closeTagStyle);
-			position=matcher.end()+closeTagStyle.length()+openTagStyle.length();
+			if(matcher.find(position)){
+				text.insert(matcher.start(),openKeywordTag);
+				text.insert(matcher.end()+openKeywordTag.length(), closeKeywordTag);
+				position=matcher.end()+closeKeywordTag.length()+openKeywordTag.length();
+				matcher = pattern.matcher(text);
+			} else{
+				break;
+			}
 
 			} catch(Exception e){
-				position++;
+
+				e.printStackTrace();
 			}
 		}
 	}
-
-	private void deleteOpenTags(){
-
-		int index=text.indexOf(openTagStyle);
-
-		while(index!=-1){
-			text.delete(index, index+openTagStyle.length());
-			index=text.indexOf(openTagStyle);
-		};
-	}
-
-	private void deleteCloseTags(){
-
-		int index=text.indexOf(closeTagStyle);
-
-		while(index!=-1){
-			text.delete(index, index+closeTagStyle.length());
-			index=text.indexOf(closeTagStyle);
-		};
-
-	}
-
-
-	/*public static void main(String[] args){
-
-	SyntaxHighlighter h = new SyntaxHighlighter();
-	System.out.println(h.highlight("Ook! Ook! dfdgd Ook? Ook.?"));
-	System.out.println(h.pattern.toString());
-	}*/
 
 }

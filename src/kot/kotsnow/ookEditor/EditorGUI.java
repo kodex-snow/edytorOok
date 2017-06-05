@@ -13,7 +13,7 @@ public class EditorGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 
-		Parent root = FXMLLoader.load(getClass().getResource("ui.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("UI.fxml"));
 
 		primaryStage.setScene(new Scene(root));
 		root.getStylesheets().add(EditorGUI.class.getResource("OokEditor.css").toExternalForm());

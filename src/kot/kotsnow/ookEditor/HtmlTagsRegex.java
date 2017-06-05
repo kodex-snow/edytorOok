@@ -17,6 +17,12 @@ public interface HtmlTagsRegex {
 	String FONT_OPEN="<font[^>]*>";
 	String FONT_CLOSE="</font>";
 
+	String KEYWORD_OPEN="<span[^>]*>";
+	String KEYWORD_CLOSE="</span>";
+
+	String SCRIPT_OPEN="<script[^>]*>";
+	String SCRIPT_CLOSE="</script>";
+
 	String[] HTMLTAGS ={HTML_OPEN,HTML_CLOSE,HEAD_OPEN,HEAD_CLOSE,BODY_OPEN,BODY_CLOSE,
-			PARAGRAPH_OPEN,PARAGRAPH_CLOSE, FONT_OPEN, FONT_CLOSE};
+			PARAGRAPH_OPEN,PARAGRAPH_CLOSE, FONT_OPEN, FONT_CLOSE, KEYWORD_OPEN,KEYWORD_CLOSE};
 }

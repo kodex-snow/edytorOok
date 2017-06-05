@@ -2,18 +2,22 @@ package kot.kotsnow.ookEditor;
 
 public class Style {
 
-	private String openTagKeyword="<span style=\"color:red\">";
-	private String closeTagKeyword="</span>";
+	private static String openTagKeyword="<font color=\"red\">";
+	private static String closeTagKeyword="</font>";
 
 	public String getOpenTagKeyword() {
 		return openTagKeyword;
 	}
-	public void setOpenTagKeyword(String openTagStyle) {
-		this.openTagKeyword = openTagStyle;
-	}
+
 	public String getCloseTagKeyword() {
 		return closeTagKeyword;
 	}
 
+	public void setFontColor(double red, double green, double blue) {
+		Style.openTagKeyword = "<font color=\"rgb("+red+","+green+","+blue+")\">";
+		System.out.println(openTagKeyword);
+	}
+
 
 }
+//Ook! Ook!
