@@ -13,7 +13,7 @@
           <Menu mnemonicParsing="false" text="Plik">
             <items>
               <MenuItem fx:id="open" mnemonicParsing="false" onAction="#open" text="Otwórz" />
-                  <MenuItem mnemonicParsing="false" text="Zapisz" />
+              <MenuItem fx:id="save" mnemonicParsing="false" onAction="#save" text="Zapisz" />
                   <MenuItem mnemonicParsing="false" text="Zamknij" />
             </items>
           </Menu>
