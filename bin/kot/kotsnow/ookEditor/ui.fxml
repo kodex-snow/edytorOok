@@ -19,7 +19,14 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Okno">
                <items>
-                  <MenuItem fx:id="settings" mnemonicParsing="false" text="Preferencje" onAction="#displaySettings" />
+                  <Menu mnemonicParsing="false" text="Motyw">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Domyślny" />
+                        <MenuItem mnemonicParsing="false" text="Niebieski" />
+                        <MenuItem mnemonicParsing="false" text="Kontrastowy" />
+                    </items>
+                  </Menu>
+                  <MenuItem fx:id="settings" mnemonicParsing="false" onAction="#displaySettings" text="Preferencje" />
                </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Pomoc">
@@ -29,6 +36,6 @@
             </Menu>
         </menus>
       </MenuBar>
-      <HTMLEditor fx:id="htmlEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" onKeyReleased="#checkText" layoutX="14.0" layoutY="30.0" prefHeight="237.0" prefWidth="585.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
+      <HTMLEditor fx:id="htmlEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="14.0" layoutY="30.0" onKeyReleased="#checkText" prefHeight="237.0" prefWidth="585.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
    </children>
 </AnchorPane>

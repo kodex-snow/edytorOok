@@ -7,6 +7,17 @@ import java.util.Scanner;
 
 public class FileOperationHandler {
 
+	private static FileOperationHandler INSTANCE;
+
+    private FileOperationHandler(){}
+
+    public static FileOperationHandler getInstance(){
+        if(INSTANCE==null)
+            INSTANCE = new FileOperationHandler();
+        return INSTANCE;
+    }
+
+
 	public void save(String content, File file){
 
 		try {

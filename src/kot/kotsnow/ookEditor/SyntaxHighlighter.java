@@ -15,14 +15,22 @@ public class SyntaxHighlighter {
 	private Style style;
 	private HtmlTagHandler htmlTagHandler;
 
+	private static SyntaxHighlighter INSTANCE;
 
 
-	public SyntaxHighlighter(){
+    public static SyntaxHighlighter getInstance(){
+        if(INSTANCE==null)
+            INSTANCE = new SyntaxHighlighter();
+        return INSTANCE;
+    }
+
+
+	private SyntaxHighlighter(){
 
 		text= new StringBuilder();
 		pattern = Pattern.compile(KEYWORD_REGEX);
-		htmlTagHandler = new HtmlTagHandler();
-		style = new Style();
+		htmlTagHandler = HtmlTagHandler.getInstance();
+		style = Style.getInstance();
 
 
 	}

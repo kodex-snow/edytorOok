@@ -8,9 +8,15 @@ public class HtmlTagHandler implements HtmlTagsRegex {
 	private Pattern pattern;
 	private Matcher matcher;
 
-	public HtmlTagHandler(){
+	private static HtmlTagHandler INSTANCE;
 
-	}
+    private HtmlTagHandler(){}
+
+    public static HtmlTagHandler getInstance(){
+        if(INSTANCE==null)
+            INSTANCE = new HtmlTagHandler();
+        return INSTANCE;
+    }
 
 	public String addEditable(String text){
 		text = text.replaceAll("<head> <\\head>", "<head> <script type=\"text/javascript\" src=\"handleCaretPosition.js\"> <\\head>");
@@ -21,8 +27,8 @@ public class HtmlTagHandler implements HtmlTagsRegex {
 
 		StringBuilder text = new StringBuilder(textToDeleteTags);
 		text = deleteKeywordTags(text);
-		for(int tag =0;tag<HTMLTAGS.length;tag++){
-			deleteTag(text, HTMLTAGS[tag]);
+		for(int tag =0;tag<HTMLTAGS_REGEX.length;tag++){
+			deleteTag(text, HTMLTAGS_REGEX[tag]);
 		}
 		return text.toString();
 	}
@@ -30,8 +36,8 @@ public class HtmlTagHandler implements HtmlTagsRegex {
 
 
 	public StringBuilder deleteKeywordTags(StringBuilder text){
-		text = deleteTag(text, KEYWORD_OPEN);
-		text = deleteTag(text, KEYWORD_CLOSE);
+		text = deleteTag(text, KEYWORD_OPEN_REGEX);
+		text = deleteTag(text, KEYWORD_CLOSE_REGEX);
 		return text;
 	}
 

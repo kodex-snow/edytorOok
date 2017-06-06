@@ -3,6 +3,7 @@ package kot.kotsnow.ookEditor;
 import java.io.File;
 import java.io.IOException;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
@@ -32,13 +33,14 @@ public class Controller
 	private FileChooser chooser;
 	private HtmlTagHandler htmlTagHandler;
 
-
 	public Controller(){
 
-		syntaxHighlighter = new SyntaxHighlighter();
-		fileOperationHandler = new FileOperationHandler();
 		chooser = new FileChooser();
-		htmlTagHandler = new HtmlTagHandler();
+
+		syntaxHighlighter = SyntaxHighlighter.getInstance();
+		fileOperationHandler = FileOperationHandler.getInstance();
+
+		htmlTagHandler = HtmlTagHandler.getInstance();
 	}
 
 	public void initialize(){
@@ -51,14 +53,12 @@ public class Controller
 		    htmlEditor.lookup(".bottom-toolbar").setManaged(false);
 		    htmlEditor.lookup(".bottom-toolbar").setVisible(false);
 
-
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
+
 	}
-
-
 
 	public void open(){
 
@@ -89,9 +89,10 @@ public class Controller
 		System.exit(0);
 	}
 
-	public void displaySettings() throws IOException{
+	public void displaySettings() throws IOException, InterruptedException{
 		SettingsController settingsController = new SettingsController();
 		settingsController.display();
+
 	}
 	public void checkText(){
 		htmlEditor.setHtmlText(syntaxHighlighter.highlight(htmlEditor.getHtmlText()));
@@ -99,6 +100,6 @@ public class Controller
 	}
 	private Window getWindow (){
 		return htmlEditor.getScene().getWindow();
-
 	}
+
 }
